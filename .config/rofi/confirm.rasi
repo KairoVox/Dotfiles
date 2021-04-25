@@ -5,7 +5,7 @@
 * {
     background-color:       @bg;
     text-color:             @fg;
-	font:				 	"Fantasque Sans Mono 10";
+	font:				 	"Iosevka Nerd Font 10";
 }
 
 window {
@@ -22,4 +22,5 @@ entry {
     expand: 				true;
     text-color:				@bg1;
 }
+
 

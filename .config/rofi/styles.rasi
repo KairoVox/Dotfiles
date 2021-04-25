@@ -8,7 +8,7 @@
  */
 
 configuration {
-	font:							"Fantasque Sans Mono 10";
+	font:							"Iosevka Nerd Font 10";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
@@ -113,4 +113,5 @@ element selected {
     border-radius:                  0px;
     border-color:                  	@bg;
 }
+
 
