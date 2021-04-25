@@ -1,5 +1,13 @@
 export ZSH="/home/kairovox/.oh-my-zsh"
 
+#colorls
+#source $(dirname $(gem which colorls))/tab_complete.sh
+
+
+#ASDF
+. $HOME/.asdf/asdf.sh
+
+
 #THEME
 ZSH_THEME="spaceship"
 
@@ -9,13 +17,26 @@ plugins=(git zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 #ALIASES
+alias vim="nvim"
 alias poly="vim ~/.config/polybar/config"
 alias b="vim ~/.config/bspwm/bspwmrc"
 alias s="vim ~/.config/sxhkd/sxhkdrc"
 alias x="vim ~/.xinitrc"
 alias z="vim ~/.zshrc"
 alias r="reset"
+alias c="clear"
+alias search="yay -Ss"
+alias update="sudo pacman -Syy"
+alias upgrade="sudo pacman -Suu"
+alias emerge="sudo pacman -S"
+alias portage="yay -S"
+alias ls="colorls"
+alias lc='colorls -lA --sd'
 
+#GIT
+alias status="git status"
+alias commit="git commit"
+alias push="git push"
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
@@ -73,8 +94,14 @@ if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
         print -P "%F{160}▓▒░ The clone has failed.%f%b"
 fi
 
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+
+
 source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
+autoload -Uz _zinit compinit
+compinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
 # Load a few important annexes, without Turbo
@@ -89,7 +116,4 @@ zinit light-mode for \
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-completions
 
-
-
-
-
+export LC_ALL=en_US.UTF-8
