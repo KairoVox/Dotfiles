@@ -1,12 +1,7 @@
 export ZSH="/home/kairovox/.oh-my-zsh"
 
-#colorls
-#source $(dirname $(gem which colorls))/tab_complete.sh
-
-
 #ASDF
 . $HOME/.asdf/asdf.sh
-
 
 #THEME
 ZSH_THEME="spaceship"
@@ -30,8 +25,6 @@ alias update="sudo pacman -Syy"
 alias upgrade="sudo pacman -Suu"
 alias emerge="sudo pacman -S"
 alias portage="yay -S"
-alias ls="colorls"
-alias lc='colorls -lA --sd'
 
 #GIT
 alias status="git status"
