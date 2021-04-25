@@ -10,12 +10,19 @@ foreground-alt 	=	#F1F8F1
 
 comentario 	= 	#bd93f9
 ciano 		= 	#8BE9FD
+azul		=	#1793D0 
 verde 		= 	#50fa7b
 laranja 	= 	#ffb86c
 rosa 		=	#ff79c6
 roxo 		= 	#6272A4
 vermelho	= 	#ff5555
 amarelo		=	#f1fa8c
+roxinho		=	#A8BAF0
+
+gentoo-roxo	=	#54487A
+gentoo-cinza	=	#DDDAEC
+gentoo-roxo-alt	=	#61538D 
+gentoo-verde	=	#73D216
 
 [bar/top]
 monitor = eDP
@@ -50,7 +57,8 @@ module-margin-left = 0
 module-margin-right = 0
 
 
-font-0 = "Fantasque Sans Mono:pixelsize=12;3"
+#font-0 = "Fantasque Sans Mono:pixelsize=12;3"
+font-0 = "Iosevka Nerd Font:pixelsize=12;3"
 font-1 = "Iosevka Nerd Font:pixelsize=14;4"
 
 modules-left = launcher workspaces
@@ -118,11 +126,13 @@ module-margin-left = 0
 module-margin-right = 0
 
 
-font-0 = "Fantasque Sans Mono:pixelsize=12;3"
+#font-0 = "Fantasque Sans Mono:pixelsize=12;3"
+font-0 = "Iosevka Nerd Font:pixelsize=12;3"
 font-1 = "Iosevka Nerd Font:pixelsize=14;4"
 
-modules-left = mpd 
-modules-center = filesystem cpu memory temperature-cpu temperature-gpu
+
+modules-left = mpd clima
+modules-center = filesystem cpu memory
 modules-right =  battery updates xkeyboard sysmenu
 
 dim-value = 1.0
@@ -169,7 +179,7 @@ label-charging = %percentage%%
 
 label-discharging = %percentage%%
 
-label-full = " Full"
+label-full = " Bateria cheia"
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -195,12 +205,20 @@ animation-charging-framerate = 750
 type = internal/cpu
 interval = 1
 
-format = <label>
-format-prefix = ﬙
+format = <label> <ramp-coreload>
+format-prefix = "﬙ "
 format-background = ${color.roxo}
-format-padding = 2
+format-padding = 0
 
-label = " %percentage%%"
+ramp-coreload-spacing = 1
+ramp-coreload-0 = ▁
+ramp-coreload-1 = ▂
+ramp-coreload-2 = ▃
+ramp-coreload-3 = ▄
+ramp-coreload-4 = ▅
+ramp-coreload-5 = ▆
+ramp-coreload-6 = ▇
+ramp-coreload-7 = █
 
 [module/date]
 type = internal/date
@@ -227,7 +245,7 @@ interval = 30
 fixed-values = true
 
 format-mounted = <label-mounted>
-format-mounted-prefix = 
+format-mounted-prefix =  
 format-mounted-background = ${color.roxo}
 format-mounted-padding = 2
 
@@ -269,7 +287,8 @@ format-disconnected-prefix = 睊
 format-disconnected-background = ${color.roxo}
 format-disconnected-padding = 2
 
-label-connected = "%essid%"
+#label-connected = %essid% %downspeed:2% 祝%upspeed% 
+label-connected = %essid%
 
 label-disconnected = " Desconectado"
 label-disconnected-foreground = ${color.foreground}
@@ -291,8 +310,9 @@ animation-packetloss-framerate = 500
 [module/pulseaudio]
 type = internal/pulseaudio
 
-sink = alsa_output.pci-0000_03_00.6.analog-stereo
-use-ui-max = false
+#sink = alsa_output.pci-0000_03_00.6.analog-stereo
+sink = alsa_output.pci-0000_00_09.2.analog-stereo
+use-ui-max = true
 interval = 5
 
 format-volume = <ramp-volume> <label-volume>
@@ -306,19 +326,21 @@ format-muted-padding = 2
 
 label-volume = %percentage%%
 
-label-muted = " Muted"
+label-muted = " Mudo"
 label-muted-foreground = ${color.foreground}
 
 ramp-volume-0 = 奄
 ramp-volume-1 = 奔
 ramp-volume-2 = 墳
 
+click-right = pavucontrol
+
 [module/temperature-cpu]
 type = internal/temperature
 interval = 0.5
 thermal-zone = 0
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp1_input
-warn-temperature = 70
+hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input
+warn-temperature = 80
 units = true
 format = <ramp> <label>
 format-background = ${color.roxo}
@@ -341,7 +363,7 @@ interval = 0.5
 
 thermal-zone = 0
 hwmon-path = /sys/devices/pci0000:00/0000:00:03.1/0000:03:00.0/hwmon/hwmon5/temp1_input
-warn-temperature = 65
+warn-temperature = 75
 
 units = true
 format = <ramp> <label>
@@ -399,14 +421,15 @@ enable-click = true
 
 enable-scroll = true
 
-icon-0 = 1;
-icon-1 = 2;
-icon-2 = 3;
-icon-3 = 4;
-icon-4 = 5;
-icon-5 = 6;
-icon-6 = 7;
-icon-7 = 8;
+icon-0 = 1;
+icon-1 = 2;
+icon-2 = 3;
+icon-3 = 4;切
+icon-4 = 5;
+icon-5 = 6;
+icon-6 = 7;
+icon-7 = 8;
+icon-8 = 9;﫺
 icon-default = 
 
 format = <label-state>
@@ -414,17 +437,21 @@ format-padding = 1
 format-background = ${color.roxo}
 
 label-monitor = %name%
+label-active = %icon%
+#label-active = 
+label-active-foreground = ${color.gentoo-roxo}
 
-label-active = 
-label-active-foreground = ${color.foreground}
+#label-occupied = ﭜ
+#label-occupied = ﭟ
+label-occupied = %icon%
+label-occupied-foreground = ${color.roxinho}
+#label-occupied-foreground = ${color.gentoo-verde}
 
-label-occupied = 
-label-occupied-foreground = ${color.foreground}
+#label-urgent = i
+label-private = %icon%
+label-private-foreground = ${color.vermelho}
 
-label-urgent = 
-label-urgent-foreground = ${color.vermelho}
-
-label-empty = 
+label-empty = %icon%
 
 label-active-padding = 1
 label-urgent-padding = 1
@@ -434,7 +461,7 @@ label-empty-padding = 1
 [module/mpd]
 type = internal/mpd
 
-host = 127.0.1.1
+hos = 127.0.1.1
 port = 6600
 interval = 1
 
@@ -471,8 +498,8 @@ toggle-off-foreground = ${color.background}
 
 [module/sysmenu]
 type = custom/text
-content = 襤
-content-background = ${color.roxo}
+content = 
+content-background = ${color.gentoo-roxo}
 content-foreground = ${color.foreground}
 content-padding = 2
 click-left = ~/.config/polybar/powermenu.sh &
@@ -483,18 +510,22 @@ exec = ~/.config/polybar/update.sh
 tail = true
 interval = 5
 format = <label>
-format-prefix = 
+format-prefix = 
 format-background = ${color.roxo}
 format-padding = 2
 label = %output%
 
 [module/launcher]
 type = custom/text
-content = 
-content-background = ${color.roxo}
-content-foreground = ${color.foreground}
+content = 
+#content = 
+#content = 
+#content = 
+#content = 
+#content = 
+content-background = ${color.gentoo-roxo}
+content-foreground = ${color.foreground-alt}
 content-padding = 2
 click-left = ~/.config/polybar/launcher.sh &
-
 
 ; vim:ft=dosini

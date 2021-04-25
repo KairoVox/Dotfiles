@@ -5,30 +5,33 @@
 ## Github  : @adi1090x
 ## Twitter : @adi1090x
 
+## Modificado	: Kairo Vox
+## Github	: @kairovox
+
 dir="~/.config/rofi"
 uptime=$(uptime -p | sed -e 's/up //g')
 
 rofi_command="rofi -theme $dir/powermenu.rasi"
 
 # Options
-shutdown=" Shutdown"
-reboot=" Restart"
-lock=" Lock"
-suspend=" Sleep"
-logout=" Logout"
+shutdown=" Desligar"
+reboot="⭘ Reiniciar"
+lock=" Bloqueio"
+suspend="鈴 Hibernar"
+logout=" Sair"
 
 # Confirmation
 confirm_exit() {
 	rofi -dmenu\
 		-i\
 		-no-fixed-num-lines\
-		-p "Are You Sure? : "\
+		-p "Tem certeza? : "\
 		-theme $dir/confirm.rasi
 }
 
 # Message
 msg() {
-	rofi -theme "$dir/message.rasi" -e "Available Options  -  yes / y / no / n"
+	rofi -theme "$dir/message.rasi" -e "Opções disponíveis  -  yes / y / no / n"
 }
 
 # Variable passed to rofi
@@ -90,4 +93,3 @@ case $chosen in
         fi
         ;;
 esac
-

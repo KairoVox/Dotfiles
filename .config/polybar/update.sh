@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/system-software-update.svg
+NOTIFY_ICON_LOW=/usr/share/icons/Papirus/32x32/apps/pacman.svg
+NOTIFY_ICON_NORMAL=/usr/share/icons/Papirus/32x32/apps/pamac-updater.svg
+NOTIFY_ICON_CRITICAL=/usr/share/icons/Papirus/32x32/apps/distributor-logo-archlinux.svg
 
 get_total_updates() { UPDATES=$(checkupdates 2>/dev/null | wc -l); }
 
@@ -10,14 +12,14 @@ while true; do
     # notify user of updates
     if hash notify-send &>/dev/null; then
         if (( UPDATES > 50 )); then
-            notify-send -u critical -i $NOTIFY_ICON \
-                "You really need to update!!" "$UPDATES New packages"
+            notify-send -u critical -i $NOTIFY_ICON_CRITICAL \
+                "Voce realmente precisa atualizar" "$UPDATES Novos pacotes"
         elif (( UPDATES > 25 )); then
-            notify-send -u normal -i $NOTIFY_ICON \
-                "You should update soon" "$UPDATES New packages"
+            notify-send -u normal -i $NOTIFY_ICON_NORMAL \
+                "Voce deve atualizar logo" "$UPDATES Novos pacotes"
         elif (( UPDATES > 2 )); then
-            notify-send -u low -i $NOTIFY_ICON \
-                "$UPDATES New packages"
+            notify-send -u low -i $NOTIFY_ICON_LOW \
+                "$UPDATES Novos pacotes"
         fi
     fi
 
@@ -29,7 +31,7 @@ while true; do
         elif (( UPDATES > 1 )); then
             echo " $UPDATES"
         else
-            echo " None"
+            echo " Nenhum"
         fi
         sleep 10
         get_total_updates
@@ -38,7 +40,7 @@ while true; do
     # when no updates are available, use a longer loop, this saves on CPU
     # and network uptime, only checking once every 30 min for new updates
     while (( UPDATES == 0 )); do
-        echo " None"
+        echo " Nenhum"
         sleep 1800
         get_total_updates
     done
